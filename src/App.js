@@ -7,7 +7,7 @@ function App() {
   const context = useContext(OpContext);
   return (
     <>
-      <h1>Items in cart: {context.cart.reduce((acc,cv)=>acc+cv.quantity,0)}</h1>
+      <div className="d-flex"><h1>&#128722;</h1><sup className="badge">{context.cart.reduce((acc,cv)=>acc+cv.quantity,0)}</sup></div>
       <div className="App">
         {
           context.products.map(product=>(
