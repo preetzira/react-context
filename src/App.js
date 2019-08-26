@@ -1,25 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useContext } from 'react';
 import './App.css';
+import {OpContext} from './context';
 
 function App() {
+
+  const context = useContext(OpContext);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1>Items in cart: {context.cart.reduce((acc,cv)=>acc+cv.quantity,0)}</h1>
+      <div className="App">
+        {
+          context.products.map(product=>(
+            <div className="card" key={product.id}>
+              <h3>{product.name}</h3>
+              <p>{product.desc}</p>
+              <button onClick={()=>context.add(product)}>Add</button>
+              {context.cart[context.cart.findIndex(item=>item.id === product.id)] && context.cart[context.cart.findIndex(item=>item.id === product.id)]['quantity'] ?<button onClick={()=>context.remove(product.id)}>Remove</button>:""}
+            </div>
+          ))
+        }
+      </div>
+     </>
   );
 }
 
